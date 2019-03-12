@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'node:6-alpine'
-            args '-p 3000:3000'
+            image 'node'
+            args '-u root -p 3000:3000'
         }
     }
     environment {
@@ -12,6 +12,7 @@ pipeline {
         stage('Build') {
             steps {
 		echo 'Building...'
+		sh 'chmod -R 777 /home/node'
                 sh 'npm install --unsafe-perm=true --allow-root'
             }
         }
